@@ -15,7 +15,7 @@ class Client extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'client_id', 'firstname', 'lastname', 'email', 'legal_counsel', 'dob', 'image', 'case_detail',
+        'client_id', 'firstname', 'lastname', 'email', 'legal_counsel', 'dob', 'image', 'case_detail', 'last_date_reminder',
     ];
 
     protected $hidden = [

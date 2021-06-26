@@ -23,6 +23,7 @@ class CreateClientsTable extends Migration
             $table->string('dob');
             $table->string('image')->nullable();
             $table->text('case_detail');
+            $table->string('last_date_reminder')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

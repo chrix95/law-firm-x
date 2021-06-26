@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Client;
+use App\Mail\PassportUpdate;
 use App\Mail\WelcomeClient;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
@@ -73,6 +75,40 @@ class JsonController extends Controller
                 ], 500);
             }
         }
+    }
+
+    public function reminderPassport(Request $request)
+    {
+        $clients = Client::where('image', null)->get();
+        $count = 0;
+        if (count($clients) > 0) {
+            try {
+                foreach ($clients as $client) {
+                    if ($client->last_date_reminder === null || $this->validateDuration($client->last_date_reminder) >= 3) {
+                        // send the email to the clients
+                        $when = now()->addMinutes(1);
+                        Mail::to($client->email)->later($when, new PassportUpdate($client));
+                        $count++;
+                        // update the current time email was sent for next time
+                        $client->update(['last_date_reminder' => now()]);
+                    }
+                }
+            } catch (\Throwable $th) {
+                \Log::info("Profile completion email not sent");
+                \Log::info($th);
+            }
+        }
+        return [
+            'status' => true,
+            'incomplete_profile' => $count,
+        ];
+    }
+
+    private function validateDuration($currentDate)
+    {
+        $prevDate = new DateTime($currentDate);
+        $today = new DateTime('now');
+        return $today->diff($prevDate)->format("%a");
     }
 
 }

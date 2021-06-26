@@ -20,4 +20,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::prefix('v1')->group(function () {
     Route::post('create-client', 'JsonController@store');
+    Route::get('passport-reminder', 'JsonController@reminderPassport');
 });
