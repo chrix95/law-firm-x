@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Client;
+use App\Mail\WelcomeClient;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class JsonController extends Controller
@@ -56,12 +58,15 @@ class JsonController extends Controller
                 $client = Client::create($data);
                 // Send welcome email to client
                 if ($client) {
+                    $when = now()->addMinutes(1);
+                    Mail::to($client->email)->later($when, new WelcomeClient($client));
                     return response()->json([
                         'status' => true,
                         'message' => "Client profile has been uploaded",
                     ], 200);
                 }
             } catch (\Throwable $th) {
+                \Log::info($th);
                 return response()->json([
                     'status' => false,
                     'message' => "An internal error occured",
