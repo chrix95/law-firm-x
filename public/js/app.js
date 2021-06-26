@@ -2137,6 +2137,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ClientList",
   props: {
@@ -2146,10 +2163,30 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   data: function data() {
-    return {};
+    return {
+      contents: [],
+      searchParam: ''
+    };
   },
-  mounted: function mounted() {},
+  mounted: function mounted() {
+    this.contents = this.clients;
+  },
   methods: {
+    filterResult: function filterResult() {
+      var _this = this;
+
+      if (this.searchParam.length > 0) {
+        this.contents = this.clients.filter(function (row) {
+          var lastname = row.lastname.toLowerCase();
+
+          var searchTerm = _this.searchParam.toLowerCase();
+
+          return lastname.includes(searchTerm);
+        });
+      } else {
+        this.contents = this.clients;
+      }
+    },
     viewClient: function viewClient(clientId) {
       window.location = "".concat(window.origin, "/preview/").concat(clientId);
     }
@@ -6664,7 +6701,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.pointer-cursor[data-v-c269400e] {\r\n    cursor: pointer;\n}\r\n", ""]);
+exports.push([module.i, "\n.pointer-cursor[data-v-c269400e] {\r\n  cursor: pointer;\n}\r\n", ""]);
 
 // exports
 
@@ -42463,46 +42500,83 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "table-responsive" }, [
-    _c("table", { staticClass: "table table-hover table-striped" }, [
-      _vm._m(0),
-      _vm._v(" "),
-      _c(
-        "tbody",
-        _vm._l(_vm.clients, function(item, index) {
-          return _c("tr", { key: index }, [
-            _c("th", { attrs: { scope: "row" } }, [_vm._v(_vm._s(index + 1))]),
-            _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(item.firstname))]),
-            _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(item.lastname))]),
-            _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(item.legal_counsel))]),
-            _vm._v(" "),
-            _c("td", [
-              _vm._v(_vm._s(new Date(item.created_at).toDateString()))
-            ]),
-            _vm._v(" "),
-            _c("td", [
-              _c(
-                "a",
-                {
-                  staticClass: "pointer-cursor",
-                  attrs: { href: "#" },
-                  on: {
-                    click: function($event) {
-                      $event.preventDefault()
-                      return _vm.viewClient(item.client_id)
+  return _c("div", [
+    _c(
+      "div",
+      { staticClass: "d-flex justify-content-end align-items-center" },
+      [
+        _c("div", { staticClass: "col-md-3 mb-3" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.searchParam,
+                expression: "searchParam"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { type: "text", placeholder: "Search" },
+            domProps: { value: _vm.searchParam },
+            on: {
+              keyup: function($event) {
+                return _vm.filterResult()
+              },
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.searchParam = $event.target.value
+              }
+            }
+          })
+        ])
+      ]
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "table-responsive" }, [
+      _c("table", { staticClass: "table table-hover table-striped" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c(
+          "tbody",
+          _vm._l(_vm.contents, function(item, index) {
+            return _c("tr", { key: index }, [
+              _c("th", { attrs: { scope: "row" } }, [
+                _vm._v(_vm._s(index + 1))
+              ]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(item.firstname))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(item.lastname))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(item.legal_counsel))]),
+              _vm._v(" "),
+              _c("td", [
+                _vm._v(_vm._s(new Date(item.created_at).toDateString()))
+              ]),
+              _vm._v(" "),
+              _c("td", [
+                _c(
+                  "a",
+                  {
+                    staticClass: "pointer-cursor",
+                    attrs: { href: "#" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.viewClient(item.client_id)
+                      }
                     }
-                  }
-                },
-                [_vm._v("\n              Preview\n            ")]
-              )
+                  },
+                  [_vm._v("\n              Preview\n            ")]
+                )
+              ])
             ])
-          ])
-        }),
-        0
-      )
+          }),
+          0
+        )
+      ])
     ])
   ])
 }
