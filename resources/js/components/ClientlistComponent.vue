@@ -17,7 +17,7 @@
           <td>{{ item.firstname }}</td>
           <td>{{ item.lastname }}</td>
           <td>{{ item.legal_counsel }}</td>
-          <td>{{ item.created_at }}</td>
+          <td>{{ new Date(item.created_at).toDateString() }}</td>
           <td>
               <a href="#" class="pointer-cursor" @click.prevent="viewClient(item.client_id)">
                 Preview

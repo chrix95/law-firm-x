@@ -42479,7 +42479,9 @@ var render = function() {
             _vm._v(" "),
             _c("td", [_vm._v(_vm._s(item.legal_counsel))]),
             _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(item.created_at))]),
+            _c("td", [
+              _vm._v(_vm._s(new Date(item.created_at).toDateString()))
+            ]),
             _vm._v(" "),
             _c("td", [
               _c(
