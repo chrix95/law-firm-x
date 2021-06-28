@@ -50,6 +50,14 @@ npm run prod
 ```
 The project will now run on (http://127.0.0.1:8000)
 
+### Auto Reminder via Email
+An API route has been created to send periodic messages to clients who haven't submitted their passport every 3 days. The route is to be added to CRONJOB manager either on cpanel or using any thrid party cron manager. The details of the API is:
+```
+METHOD: GET
+URL: http://127.0.0.1:8000/api/v1/passport-reminder
+```
+The endpoint can equally be tested using POSTMAN to simualte it's behaviour
+
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
