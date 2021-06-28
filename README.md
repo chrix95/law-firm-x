@@ -27,8 +27,8 @@ DB_PASSWORD=DATABASE_PASSWORD <br>
 DB_CONNECTION=mysql <br>
 DB_HOST=127.0.0.1 <br>
 ```
-Don't forget to run `php artisan key:generate` to generate a new key for your application
-6. Run `php artisan migrate` to create the `client` table into your database
+Don't forget to run `php artisan key:generate` to generate a new key for your application <br>
+6. Run `php artisan migrate` to create the `client` table into your database <br>
 7. Setup your [mailtrap](https://mailtrap.io/signin) account credentials in your `.env`
 ```
 MAIL_MAILER=smtp
