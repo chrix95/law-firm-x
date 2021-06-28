@@ -29,7 +29,7 @@ DB_HOST=127.0.0.1 <br>
 ```
 Don't forget to run `php artisan key:generate` to generate a new key for your application <br>
 6. Run `php artisan migrate` to create the `client` table into your database <br>
-7. Setup your [mailtrap](https://mailtrap.io/signin) account credentials in your `.env`
+7. Setup your third party mail trapping account [mailtrap](https://mailtrap.io/signin) account credentials in your `.env`
 ```
 MAIL_MAILER=smtp
 MAIL_HOST=smtp.mailtrap.io
@@ -37,6 +37,11 @@ MAIL_PORT=2525
 MAIL_USERNAME=MAILTRAP_USERNAME
 MAIL_PASSWORD=MAILTRAP_PASSWORD
 MAIL_ENCRYPTION=tls
+```
+Use can also use the default Laravel trap function by changing the config on your `.env` from `smtp` to `log`
+
+```
+MAIL_MAILER=log
 ```
 
 ### Serving your application
